@@ -1,6 +1,6 @@
 ---
 name: technical-proposal-expert
-description: Multi-scenario document writing for Chinese formal documents. Use when user wants to write documents (e.g. technical proposals, bidding docs, design reports, test reports, weekly reports) or has not specified document type and needs scene selection. This skill first asks what document to write, matches the best scenario (technical-proposal / design-report / test-report / weekly-report), or falls back to general; then loads the corresponding reference and applies shared writing rules (no AI-sounding phrases, narrative over bullets, logical flow).
+description: Multi-scenario document writing for Chinese formal documents. Use when user wants to write documents (e.g. technical proposals, bidding docs, design reports, test reports, weekly reports) or has not specified document type and needs scene selection. This skill first asks what document to write, matches the best scenario (technical-proposal / design-report / test-report / weekly-report), or falls back to general; then confirms document usage scenario and user identity so output fits the reader and context, optionally builds a temporary txt glossary of industry terms for polish; loads the corresponding reference and applies shared writing rules (no AI-sounding phrases, narrative over bullets, logical flow).
 ---
 
 # 文档写作专家（统一入口）
@@ -28,11 +28,27 @@ description: Multi-scenario document writing for Chinese formal documents. Use w
 
 更完整的映射与说明见 `references/README.md`。
 
-### 3. 加载场景指引
+### 3. 确认使用场景与用户身份（必做）
+
+无论写哪类文档，在正式撰写前都须先明确两点，以便写出更符合其身份与定位的文档：
+
+- **文档使用场景**：文档给谁看、在什么场合用（如内部汇报、对外投标、甲方验收、留档备查等）。
+- **用户身份/角色**：撰写者或文档代表方的身份（如乙方技术负责人、项目经理、测试负责人、一线研发等）。
+
+根据上述信息调整语气、详略、侧重点与称谓，使成品更贴合使用场景与身份定位。若用户未主动提供，可简短追问后再进入下一步。
+
+### 4. 加载场景指引
 
 匹配到场景后，**必须读取**本 skill 目录下对应的 reference 文件（`references/<场景标识>.md`），并按其中流程与约束执行。通用写作要求（见下）与场景指引**同时生效**。
 
-### 4. 执行与输出
+### 5. 行业用语 / 专有名词（可选，润色用）
+
+可与用户确认是否需要使用**行业黑话、专有名词、专业词汇**（如领域术语、公司/项目惯用语、行话等）。若用户确认需要：
+
+- 在确认后生成一份**临时 txt**（如 `writing-glossary-temp.txt` 或用户指定名），将约定好的词条写入该文件，便于撰写时查阅。
+- 在写作中**按场景适当融入**这些用语，作为润色的一部分；**不必处处使用**，仅在符合上下文与场景时自然带入，避免生硬堆砌。若当前文档场景偏通用或用户未提供词条，可不使用或仅少量使用。
+
+### 6. 执行与输出
 
 按所加载 reference 中的步骤与结构撰写；长文档的分段字数、是否使用 plan.md 等以各场景 reference 为准，通用输出控制见下节。
 
@@ -84,5 +100,7 @@ description: Multi-scenario document writing for Chinese formal documents. Use w
 
 1. **先确定类型**：未明确则询问，已明确则直接匹配。
 2. **匹配与兜底**：按关键词匹配场景；无法匹配则使用 references/general.md。
-3. **加载 reference**：匹配后必须读取 `references/<场景>.md` 并执行其中指引。
-4. **通用要求**：全文遵守禁词表、去列表化原则、逻辑连接与输出控制；场景专属约束见各 reference。
+3. **使用场景与身份**：撰写前确认文档使用场景（给谁看、什么场合）和用户身份/角色，使文档更符合其定位。
+4. **加载 reference**：匹配后必须读取 `references/<场景>.md` 并执行其中指引。
+5. **行业用语（可选）**：可与用户确认行业用语/专有名词后生成临时 txt，在写作中**按场景适当**融入，仅作润色，不强行堆砌。
+6. **通用要求**：全文遵守禁词表、去列表化原则、逻辑连接与输出控制；场景专属约束见各 reference。
