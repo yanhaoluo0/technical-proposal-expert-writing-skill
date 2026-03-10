@@ -80,9 +80,10 @@
 | 风格基调 | 写实 / 写意 / 水墨 / 现代 / 复古 / 唯美 / 大气 / 电影感 |
 | 投放平台 | 抖音 / 快手 / 小红书 / B站 / 微信视频号 / 线下大屏 |
 | 画面侧重 | 人物优先 / 意境优先 / 叙事优先 |
-| AI模型 | （可选）Runway / Pika / 可灵 / 海螺 / 通义 / 可爱芯 / 通用 |
+| AI模型 | **Seedance 2.0**（首选）/ Runway / Pika / 可灵 / 海螺 / 通义 / 通用 |
 
-> 若用户未提供，以推荐值填充并说明：「若未说明，我将按XX风格默认处理」
+> 若用户未指定模型，默认使用 **Seedance 2.0**，因其对结构化、具象化、带镜头语言的内容理解最优。
+> 若用户指定其他模型，则自动适配对应平台的 prompt 格式。
 
 ---
 
@@ -159,49 +160,106 @@
 | 预估时长 | 秒数 | 5秒 |
 | 制作备注 | 转场、特效、风格要求 | 重点表现「静」与「冷」的意境，转场用淡入 |
 
-### 5.2 AI版（供文生视频）
+### 5.2 AI版（供文生视频 - Seedance 2.0 优先）
 
-采用结构化字段设计，适配主流文生视频模型的prompt语法。
+采用结构化字段设计，适配 **Seedance 2.0** 的 prompt 语法。Seedance 对清晰、具体、符合电影叙事逻辑的描述理解最优。
 
-#### 字段设计
+#### 5.2.1 字数与长度约束
 
-| 字段 | 说明 | 示例 |
-|------|------|------|
+| 指标 | 建议值 | 说明 |
+|------|--------|------|
+| API 上限 | 单条 prompt 最多 2000 字符（中文约 600-800 字） | 硬性限制 |
+| **实战最优区间** | **30-100 词（英文）/ 60-200 字（中文）** | 出片率最高、细节最稳 |
+| 推荐上限 | 60 词以内 + 约束词 | 质量 > 数量 |
+| 超过 100 词 | 模型易优先级混乱、质量下降 | 避免堆砌 |
+
+> **核心原则**：一个清晰名词 > 一段形容词；质量 > 数量
+
+#### 5.2.2 三大最佳框架（Seedance 2.0 适配）
+
+**框架一：电影级单镜头（最稳、最常用）**
+
+```
+结构：主体 + 场景 / 氛围 + 动作 / 表演 + 镜头移动 + 风格 / 灯光
+
+示例：
+一位年轻女生在海边慢走，微风拂动头发，微笑看向镜头，黄昏暖光，
+4K高清，电影感，稳定运镜，画面流畅不抖动，细节清晰
+```
+
+**框架二：多镜头叙事（适合短片 / 剧情）**
+
+```
+结构：镜头1 → 转场词 → 镜头2 → 风格 / 节奏
+
+示例：
+镜头1：双手组装机械装置的特写，动作精确，顶灯投射锐利阴影。
+切换到：发明家工作室中景，桌上堆满蓝图与工具。
+切换到：透过窗口远景，装置迸发光芒照亮房间。
+快速剪辑，手持纪录片风格，暖光转冷蓝
+```
+
+**框架三：参考驱动构图（精准控制，2.0 核心功能）**
+
+```
+结构：基础描述 + @图像参考 + @视频参考 + @音频参考
+
+示例：
+舞者在废弃仓库跳现代舞。
+@Image1 为舞者外貌与服装；
+@Video1 参考流畅动作（手臂延伸、地面动作）；
+@Image2 定义工业仓库环境；
+动作与 @Audio1 节奏同步。
+360°环绕跟拍，中等距离，体积光，高对比，去饱和调色
+```
+
+#### 5.2.3 字段设计
+
+| 字段 | 说明 | 示例（适配 Seedance） |
+|------|------|----------------------|
 | 镜头编号 | 对应导演版 | 1-1 |
-| 主体 | 画面核心对象 | Chinese poet silhouette standing at bed |
-| 场景 | 环境与背景 | traditional Chinese bedroom, moonlight through lattice window, blue bricks floor |
-| 动作/动态 | 镜头运动或对象动作 | static wide shot, moonlight casting soft shadows on floor |
-| 光线/氛围 | lighting与mood | cold blue moonlight, serene, poetic atmosphere, cinematic lighting |
-| 色彩 | 主色调 | silver and blue tones, high contrast |
-| 风格标签 | 渲染风格关键词 | ink wash painting influence, traditional Chinese art style, film grain |
-| 格式参数 | 可选的模型参数 | --ar 16:9 --style cinematic --length 5s |
+| 主体 | 画面核心对象（具体化） | 唐代诗人剪影，侧立木格窗前 |
+| 场景 | 环境与背景 | 传统中式卧室，圆月透过木格窗 |
+| 动作/动态 | 镜头运动 + 对象动作 | 固定机位，诗人凝视月光，身体微微前倾 |
+| 光线/氛围 | 光线 + 情绪 | 冷蓝色月光，宁静忧思，电影感布光 |
+| 色彩 | 主色调 | 银白与淡蓝，高对比 |
+| 风格标签 | 渲染风格 | 水墨画意境，胶片颗粒质感 |
+| 时间轴 | 复杂内容按秒拆分（可选） | 0-3s：月光入画；4-5s：诗人入镜 |
+| 负面提示 | 必加，提升稳定性 | low quality, blurry, deformed, jittery motion |
 
-#### 输出示例
+#### 5.2.4 输出示例（适配 Seedance）
 
 **【AI版 Prompt 1-1】**
 
 ```
-[主体] Chinese poet silhouette standing at bed
-[场景] traditional Chinese bedroom, moonlight through lattice window, blue bricks floor
-[动作] static wide shot, moonlight casting soft shadows on floor
-[光线/氛围] cold blue moonlight, serene, poetic atmosphere, cinematic lighting
-[色彩] silver and blue tones, high contrast
-[风格] ink wash painting influence, traditional Chinese art style
-[参数] --ar 16:9 --style cinematic --length 5s
+[主体] 唐代诗人剪影，侧立木格窗前
+[场景] 传统中式卧室，圆月透过木格窗洒下月光，青砖地面
+[动作] 固定机位，诗人凝视月光，身体微微前倾
+[光线] 冷蓝色月光，柔和光斑，宁静忧思
+[色彩] 银白与淡蓝，高对比
+[风格] 水墨画意境，胶片颗粒质感
+[负面提示] low quality, blurry, deformed, jittery motion
 ```
 
-**简化版（单行prompt，可直接喂给AI）**：
+**简化版（单行 prompt，直接喂给 Seedance）**：
 
 ```
-Chinese poet silhouette at bed, traditional Chinese bedroom with moonlight through lattice window casting shadows on blue bricks, cold blue moonlight, serene poetic atmosphere, static wide shot, cinematic lighting, ink wash style --ar 16:9 --style cinematic --length 5s
+唐代诗人剪影侧立窗前，传统中式卧室，圆月透过木格窗洒下冷蓝色月光，青砖地面形成柔和光斑，诗人凝视月光，身体微微前倾，固定机位，水墨画意境，胶片质感，4K高清 --ar 16:9 --seed 12345
 ```
 
-#### AI版编写原则
+> **提示**：Seedance 2.0 参数说明：
+> - `--ar 16:9`：画面比例（16:9/9:16/1:1/4:3）
+> - `--seed`：种子数（可选，用于复现结果）
+> - `--fps 24`：帧率（可选）
 
-- **关键词化**：避免复杂句式，用逗号分隔的关键词或短语
-- **视觉优先**：强调主体、场景、光线、氛围、色彩
-- **适配模型**：可省略格式参数，保留核心视觉描述即可
-- **一致性**：同场景同系列的镜头保持风格/色调一致
+#### 5.2.5 核心写作原则（必看）
+
+1. **具体化**：用「橘色虎斑猫」而非「猫」；用「缓慢推拉」而非「镜头移动」
+2. **单镜头单动作**：一个镜头只描述一个核心动作，避免堆砌
+3. **专业术语优先**：dolly in、跟拍、浅景深、胶片颗粒、IMAX 质感等
+4. **时间轴拆分**：复杂内容按秒拆解（0-3s：入场；4-8s：特写）
+5. **负面提示必加**：结尾固定写 `low quality, blurry, deformed, jittery motion` 等，提升稳定性
+6. **一致性**：同场景同系列的镜头保持风格/色调/光线一致
 
 ---
 
@@ -216,6 +274,12 @@ Chinese poet silhouette at bed, traditional Chinese bedroom with moonlight throu
 - [ ] 时长分布是否合理
 - [ ] AI prompt之间是否有冲突（如前后镜头色调突变、风格不一）
 - [ ] 意象还原度：源文本的核心意象是否都有视觉呈现
+- [ ] **Seedance 适配校验**：
+  - [ ] 单条 prompt 是否在 60-200 字（60词）以内
+  - [ ] 是否包含「主体 + 动作 + 场景 + 光线」四个核心要素
+  - [ ] 是否已添加负面提示词（low quality, blurry 等）
+  - [ ] 多镜头叙事是否使用「切换到/转场至」分隔
+  - [ ] 前后镜头风格/色调/光线是否一致
 
 ### 迭代方式
 
@@ -348,31 +412,34 @@ Chinese poet silhouette at bed, traditional Chinese bedroom with moonlight throu
 
 ---
 
-**AI版**
+**AI版（适配 Seedance 2.0）**
 
 ```
-[主体] Chinese poet silhouette standing at window
-[场景] traditional Chinese bedroom, full moon visible through lattice window, blue bricks floor with moonlight shadows
-[动作] static shot, poet gazing at moon
-[光线/氛围] cold blue moonlight, serene, contemplative, cinematic lighting
-[色彩] silver blue tones, high contrast
-[风格] ink wash painting influence, traditional Chinese art
-[参数] --ar 16:9 --style cinematic --length 5s
+[主体] 唐代诗人剪影，侧立木格窗前
+[场景] 传统中式卧室，圆月透过木格窗，青砖地面
+[动作] 固定机位，诗人凝视月光，身体微微前倾
+[光线] 冷蓝色月光，柔和光斑，宁静
+[色彩] 银白与淡蓝，高对比
+[风格] 水墨画意境，胶片颗粒
+[负面提示] low quality, blurry, deformed, jittery motion
 ```
 
-**简化版**：
+**简化版（直接喂给 Seedance）**：
 
 ```
-Chinese poet silhouette at window, full moon through lattice window casting shadows on blue bricks floor, cold blue moonlight, serene contemplative mood, static shot, ink wash style --ar 16:9 --length 5s
+唐代诗人剪影侧立窗前，传统中式卧室，圆月透过木格窗洒下冷蓝色月光，青砖地面形成柔和光斑，诗人凝视月光，身体微微前倾，固定机位，水墨画意境，胶片质感，4K高清 --ar 16:9
 ```
 
 ---
 
 ## 十三、可选扩展（未来）
 
-1. **AI模型适配**：可指定输出为特定平台的prompt格式（如Runway、Pika、可灵、海螺等）
-2. **风格预设**：预设「水墨风」「电影感」「国潮」「治愈系」等模板
-3. **批量处理**：支持一次输入多首诗，批量生成系列短片脚本
+1. **模型预设适配**：
+   - **Seedance 2.0**（默认首选）：适配三大框架 + 负面提示
+   - Runway/Pika/可灵：自动转换为对应平台的 prompt 格式
+   - 风格预设：「水墨风」「电影感」「国潮」「治愈系」等模板
+2. **批量处理**：支持一次输入多首诗，批量生成系列短片脚本
+3. **参考驱动增强**：支持绑定图像/视频/音频参考，精准控制角色、动作、节奏
 
 ---
 
