@@ -17,6 +17,17 @@
 | `writing-guidelines.md` 只在文末链接，经常不读 | 工作流第 2 步必读 |
 | 没有各文档「必写章节 / 必写表 / 固定句式」 | 见 `references/` |
 
+## 只有一个 skill
+
+名称始终是 **`software-engineering-docs`**。仓库是源码，安装目录才是 Agent 真正加载的位置。每种工具只装一份：
+
+| 你用的工具 | 只保留这一份 |
+|---|---|
+| Cursor | `~/.cursor/skills/software-engineering-docs` |
+| Claude Code | `~/.claude/skills/software-engineering-docs` |
+
+不要在 Cursor 里同时放 `~/.cursor/skills` 和 `~/.claude/skills` 两份同名 skill，列表里会显示成「两个」。
+
 ## 安装
 
 把**整个仓库**克隆到 skills 目录（需要 `文档示例/` 才能套模板）：
@@ -25,7 +36,7 @@
 # Cursor（个人 skill，所有项目可用）
 git clone <本仓库 URL> ~/.cursor/skills/software-engineering-docs
 
-# Claude Code
+# Claude Code（仅在使用 Claude Code 时再装一份）
 git clone <本仓库 URL> ~/.claude/skills/software-engineering-docs
 ```
 
@@ -35,7 +46,7 @@ Windows 示例：
 git clone <本仓库 URL> "$HOME/.cursor/skills/software-engineering-docs"
 ```
 
-本仓库作为项目打开时，也可把根目录当作 skill 使用（根目录已有 `SKILL.md`）。若 Agent 仍未自动加载，在对话里明确说：`使用 software-engineering-docs skill 写【文档类型】`。
+若 Agent 未自动加载，在对话里明确说：`使用 software-engineering-docs 写【文档类型】`。
 
 ## 使用
 
