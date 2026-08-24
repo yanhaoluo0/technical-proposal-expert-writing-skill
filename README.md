@@ -1,3 +1,5 @@
+
+
 # technical-proposal-expert
 
 项目名称与 skill 名称均为 **`technical-proposal-expert`**。
@@ -9,13 +11,13 @@
 把整个仓库克隆到 skills 目录：
 
 ```bash
-git clone <本仓库 URL> ~/.cursor/skills/technical-proposal-expert
+git clone https://github.com/yanhaoluo0/technical-proposal-expert-writing-skill.git ~/.cursor/skills/technical-proposal-expert
 ```
 
 Claude Code：
 
 ```bash
-git clone <本仓库 URL> ~/.claude/skills/technical-proposal-expert
+git clone https://github.com/yanhaoluo0/technical-proposal-expert-writing-skill.git ~/.claude/skills/technical-proposal-expert
 ```
 
 每种工具只装一份。Cursor 不要同时保留 `~/.cursor/skills` 与 `~/.claude/skills` 下的同名 skill。
