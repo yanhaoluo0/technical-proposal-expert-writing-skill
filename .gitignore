@@ -10,3 +10,6 @@ __pycache__/
 
 # 生成的素材索引（由 scripts/index_materials.py 生成）
 *.index.json
+
+# firecrawl 抓取的中间产物（本地缓存与搜索结果）
+.firecrawl/

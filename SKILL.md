@@ -63,6 +63,10 @@ description: MUST be used when writing, drafting, or polishing Chinese formal do
 | 数据治理、数据交换、共享 | knowledge/数据治理与交换共享 |
 | 低代码、BPM、流程引擎 | knowledge/低代码与BPM |
 | 移动端、小程序、App | knowledge/移动端 |
+| 云原生、K8s、容器、Redis、Kafka、Istio | knowledge/云原生与开源组件 |
+| 测试方案、测试金字塔、质量模型 | knowledge/测试与质量 |
+| 文档模板、SRS、SDD、DBDD、GJB 438C | knowledge/文档模板 |
+| 标准引用、合规核对 | knowledge/合规与标准 |
 
 未命中则跳过，不强行套用。目录内文件按「技术卡片」格式组织，见 [knowledge/README.md](knowledge/README.md)。
 
