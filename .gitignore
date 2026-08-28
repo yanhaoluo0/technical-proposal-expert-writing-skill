@@ -1,0 +1,12 @@
+# 系统与 IDE 文件
+.DS_Store
+Thumbs.db
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# 生成的素材索引（由 scripts/index_materials.py 生成）
+*.index.json
