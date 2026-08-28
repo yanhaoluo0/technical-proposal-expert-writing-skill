@@ -137,5 +137,3 @@ python ~/.cursor/skills/technical-proposal-expert/scripts/index_materials.py
 
 - 知识库已有 46 份内容：20 份 GJB 438C 文档模板 + 26 份技术卡片（微服务 / 云原生 / 大数据 / 物联网 / 测试 / 高可用 / 等保 / 信创 / 数据治理），来源见 `knowledge/00-来源登记.md`；`AI与视频分析 / 低代码与BPM / 移动端` 等目录仍待补充卡片
 - 素材仅支持 `.md` / `.txt`，其他格式先转换
-- 仓库当前**无 LICENSE**（原作者内容已全部移除，其许可证一并删除）；如需开源请另行添加以本项目名义的许可证
-- `.firecrawl/` 为本地抓取工作区（已 gitignore），不会进入仓库
