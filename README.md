@@ -137,3 +137,7 @@ python ~/.cursor/skills/technical-proposal-expert/scripts/index_materials.py
 
 - 知识库已有 46 份内容：20 份 GJB 438C 文档模板 + 26 份技术卡片（微服务 / 云原生 / 大数据 / 物联网 / 测试 / 高可用 / 等保 / 信创 / 数据治理），来源见 `knowledge/00-来源登记.md`；`AI与视频分析 / 低代码与BPM / 移动端` 等目录仍待补充卡片
 - 素材仅支持 `.md` / `.txt`，其他格式先转换
+
+## 可选的技术标书模板资源
+
+- [technical-bid-templates](https://github.com/yddjh/technical-bid-templates)：中文 Word 技术文件模板，以及研究内容、实施方案和服务承诺的填写指南，可用于准备项目章节框架。该资源由本条目的贡献者维护，不是本项目的内置依赖；使用时以采购文件和实际项目资料为准。外部仓库尚未提供统一的 LICENSE 文件，使用及再分发前需确认授权范围。Word 文件需先转换为 `.md` / `.txt` 才能进入本项目的素材索引流程。
